@@ -11,3 +11,6 @@ Library  ./leap_year.py
     ${result}=  is_leap_year   2015
     Should Not Be True  ${result}
 
+2020 should be a leap year
+    ${result}=  is_leap_year    2021
+    should not be true    ${result}

@@ -3,6 +3,9 @@ Library  SeleniumLibrary
 Suite Setup  Navigate To Home Page
 Suite Teardown  Close Browser
 
+*** Variables ***
+${URL}=     Set Variable  http://34.225.240.91
+${BROWSER}=     Set Variable    Chrome
 
 *** Test Cases ***
 Using Variables
@@ -10,4 +13,4 @@ Using Variables
 
 *** Keywords ***
 Navigate To Home Page
-    Open Browser    http://34.225.240.91		Chrome
+    Open Browser    ${URL}		${BROWSER}
