@@ -4,8 +4,8 @@ Suite Setup  Navigate To Home Page
 Suite Teardown  Close Browser
 
 *** Variables ***
-${URL}=     Set Variable  http://34.225.240.91
-${BROWSER}=     Set Variable    Chrome
+${URL}=    http://34.225.240.91
+${BROWSER}=       Chrome
 
 *** Test Cases ***
 Using Variables
