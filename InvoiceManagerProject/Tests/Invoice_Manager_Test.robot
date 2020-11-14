@@ -1,5 +1,4 @@
 *** Settings ***
-Library    SeleniumLibrary
 Resource    ../Resources/CommonWeb.robot
 Resource    ../Resources/PageObject/InvoiceManagerPage.robot
 Test Setup     Navigate To The HomePage
@@ -7,16 +6,16 @@ Test Teardown    End of the TestCase
 
 
 *** Variables ***
-
+${InvoiceName}=     Ahmet
 
 
 *** Test Cases ***
-#Create Invoice
- #   ${Invoices}=    InvoiceManagerPage.Get All Invoices
-  #  log to console    ${Invoices}
+Get Invoices
+    ${Invoices}=    InvoiceManagerPage.Get All Invoices
+    log to console    ${Invoices}
 
-Go To The Invoice
-    InvoiceManagerPage.Get Details Of Invoice    Ahmet
+Go To The Spesific Invoice
+    InvoiceManagerPage.Get Details Of Invoice    ${InvoiceName}
 
 
 
