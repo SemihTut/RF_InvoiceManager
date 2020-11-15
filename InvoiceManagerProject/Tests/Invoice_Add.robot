@@ -6,31 +6,15 @@ Test Teardown    End of the TestCase
 
 *** Variables ***
 ${Date}=    2020-11-25
-${invoiNumber}
+
+
 *** Test Cases ***
 Add New Invoice
-    InvoiceManagerPage.Invoice Creation Page Is Open
-    ${InvoiceNumber}=   InvoiceManagerPage.Generate Random Number
-    Input Invoice Number    ${InvoiceNumber}
-    ${CompanyName}=     InvoiceManagerPage.Generate Random String With Defaults
-    Input Company Name   ${CompanyName}
-    ${TypeOfWork}=      InvoiceManagerPage.Generate Random String With Defaults
-    Input Type Of Work   ${TypeOfWork}
-    ${RandomAmount}=    InvoiceManagerPage.Generate Random Price
-    Input Amount    ${RandomAmount}
-    Input Due Date  ${Date}
-    Select Status
-    ${RandomComment}=   InvoiceManagerPage.Generate Random String With Defaults
-    Input Description   ${RandomComment}
+    Fill The Invoice Necessary Part
     Create Invoice
     sleep    1
     Validate Invoice Created     ${InvoiceNumber}
-    sleep    2
-    Delete Invoice If Exists    ${InvoiceNumber}
-
-
-
-   # sleep    ${Delay}
+    Delete Invoice    ${InvoiceNumber}
 
 
 *** Keywords ***
@@ -84,3 +68,19 @@ Delete Invoice
     [Arguments]  ${invoiceNumber}
     Click Link      xpath://a[normalize-space()='${invoiceNumber}']
     Click Button    deleteButton
+
+Fill The Invoice Necessary Part
+    InvoiceManagerPage.Invoice Creation Page Is Open
+    ${InvoiceNumber}=   InvoiceManagerPage.Generate Random Number
+    set suite variable     ${InvoiceNumber}
+    Input Invoice Number    ${InvoiceNumber}
+    ${CompanyName}=     InvoiceManagerPage.Generate Random String With Defaults
+    Input Company Name   ${CompanyName}
+    ${TypeOfWork}=      InvoiceManagerPage.Generate Random String With Defaults
+    Input Type Of Work   ${TypeOfWork}
+    ${RandomAmount}=    InvoiceManagerPage.Generate Random Price
+    Input Amount    ${RandomAmount}
+    Input Due Date  ${Date}
+    Select Status
+    ${RandomComment}=   InvoiceManagerPage.Generate Random String With Defaults
+    Input Description   ${RandomComment}

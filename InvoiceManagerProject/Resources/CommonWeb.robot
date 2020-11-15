@@ -4,8 +4,8 @@ Library     OperatingSystem
 
 
 *** Variables ***
-${Browser}        Chrome
-${SiteUrl}        http://34.225.240.91/#/
+${Browser}        chrome
+${SiteUrl}        http://34.225.240.91
 ${Delay}          2s
 
 
@@ -14,7 +14,7 @@ Navigate To The HomePage
     open browser    ${SiteUrl}     ${Browser}
     maximize browser window
     Set Selenium Implicit Wait    10 Seconds
-    Set Selenium Speed     .25 seconds
+    Set Selenium Speed     .10 seconds
    # sleep   ${Delay}
 
 End of the TestCase
