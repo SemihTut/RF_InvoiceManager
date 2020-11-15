@@ -14,6 +14,13 @@ ${NUMBERS}        1234567890
 ${addInvoiceButton}=    Add Invoice
 ${invoiceNumberInput}=  invoice
 ${companyNameInput}=    company
+${typeOfNameInput}=     type
+${amountInput}=  price
+${dueDate}=     dueDate
+${selectStatus}=    selectStatus
+${descriptionInput}=    comment
+${saveButton}=  saveButton
+${createButton}=    createButton
 
 
 *** Keywords ***
@@ -43,6 +50,10 @@ Get Details Of Invoice
 
 Generate Random Number
     ${random_number}    Evaluate    random.randint(1000000, 9999999)   random
+    [Return]    ${random_number}
+
+Generate Random Price
+    ${random_number}    Evaluate    random.randint(0, 100000)   random
     [Return]    ${random_number}
 
 Create Invoice Number
@@ -83,3 +94,9 @@ Test Random String With
 
 Generate Random String From Non Default Characters
     Test Random String With    %=}$+^~*äö#    %=}$+^~*äö#
+
+Select Random Status
+    ${random_number}=    Evaluate    random.randint(1, 4)   random
+    ${randomNum}=   convert to string   ${random_number}
+    select from list by index    ${selectStatus}  ${randomNum}
+
