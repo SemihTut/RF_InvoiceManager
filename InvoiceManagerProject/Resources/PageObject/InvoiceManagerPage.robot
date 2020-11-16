@@ -10,6 +10,9 @@ ${LOWER}          qwertyuiopasdfghjklzxcvbnm
 ${UPPER}          QWERTYUIOPASDFGHJKLZXCVBNM
 ${LETTERS}        ${LOWER}${UPPER}
 ${NUMBERS}        1234567890
+${SiteUrl}    http://34.225.240.91
+${Browser}     Chrome
+${Date}     12-12-2020
 
 ${addInvoiceButton}=    Add Invoice
 ${invoiceNumberInput}=  invoice
@@ -64,10 +67,6 @@ Invoice Creation Page Is Open
     Click Link  Add Invoice
     Page Should Contain Element     invoiceNo_add
 
-Delete Invoice
-    [Arguments]  ${invoice_element}
-    Click Link  ${invoice_element}
-    Click Button    deleteButton
 
 Generate Random String With Defaults
     ${result} =    Generate Random String
@@ -100,3 +99,92 @@ Select Random Status
     ${randomNum}=   convert to string   ${random_number}
     select from list by index    ${selectStatus}  ${randomNum}
 
+Click Add Invoice
+    Click Link  Add Invoice
+    Page Should Contain Element     invoiceNo_add
+
+
+Add Invoice
+    [Documentation]     This keywords fills out the invoice details page
+    [Arguments]  ${Name}    ${Company}  ${Type}     ${Cost}     ${Date}     ${Comments}     ${Status}
+    Input Text  invoice   ${Name}
+    Input Text  company   ${Company}
+    Input Text  type   ${Type}
+    Input Text  price   ${Cost}
+    Input Text  dueDate   ${Date}
+    Input Text  comment   ${Comments}
+    Select From List By Value   selectStatus    ${Status}
+    Click Button    createButton
+
+
+Navigate To Home Page
+    Open Browser    ${SiteUrl}		${Browser}
+    MAXIMIZE BROWSER WINDOW
+    Set Selenium Speed    .25 Seconds
+
+Input Invoice Number
+    [Arguments]    ${randomNumber}
+    input text    ${invoiceNumberInput}   ${randomNumber}
+   # sleep    ${Delay}
+
+Input Company Name
+    [Arguments]    ${randomName}
+    input text   ${companyNameInput}     ${randomName}
+
+Input Type Of Work
+    [Arguments]    ${randomName}
+    input text    ${typeOfNameInput}   ${randomName}
+
+Input Amount
+    [Arguments]    ${randomAmount}
+    input text    ${amountInput}     ${randomAmount}
+
+Input Due Date
+    [Arguments]    ${randomDate}
+    input text    ${dueDate}    ${randomDate}
+
+Select Status
+    InvoiceManagerPage.Select Random Status
+
+Input Description
+    [Arguments]    ${randomComment}
+    input text    ${descriptionInput}   ${randomComment}
+
+Save Invoice
+    click element    ${saveButton}
+
+Create Invoice
+    click element    ${createButton}
+
+Validate Invoice Created
+    [Arguments]    ${InvoiceNumber}
+    ${listOfInvoices}=  InvoiceManagerPage.Get All Invoices
+    ${strInvoiceNumber}=    convert to string    ${InvoiceNumber}
+    list should contain value   ${listOfInvoices}   ${strInvoiceNumber}
+
+Delete Invoice If Exists
+    [Arguments]    ${invoiceNumber}
+    ${invoice_count}=   Get Element Count    xpath://a[normalize-space()='${invoiceNumber}']
+    log to console      ${invoice_count}
+    Run Keyword If      ${invoice_count} > 0    Delete Invoice  ${invoiceNumber}
+
+Delete Invoice
+    [Arguments]  ${invoiceNumber}
+    Click Link      xpath://a[normalize-space()='${invoiceNumber}']
+    Click Button    deleteButton
+
+Fill The Invoice Necessary Part
+    InvoiceManagerPage.Invoice Creation Page Is Open
+    ${InvoiceNumber}=   InvoiceManagerPage.Generate Random Number
+    set suite variable     ${InvoiceNumber}
+    Input Invoice Number    ${InvoiceNumber}
+    ${CompanyName}=     InvoiceManagerPage.Generate Random String With Defaults
+    Input Company Name   ${CompanyName}
+    ${TypeOfWork}=      InvoiceManagerPage.Generate Random String With Defaults
+    Input Type Of Work   ${TypeOfWork}
+    ${RandomAmount}=    InvoiceManagerPage.Generate Random Price
+    Input Amount    ${RandomAmount}
+    Input Due Date  ${Date}
+    Select Status
+    ${RandomComment}=   InvoiceManagerPage.Generate Random String With Defaults
+    Input Description   ${RandomComment}

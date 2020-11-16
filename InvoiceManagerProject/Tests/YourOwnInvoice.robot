@@ -3,6 +3,8 @@ Library  SeleniumLibrary
 Library  OperatingSystem
 Library  String
 Library  Screenshot
+Resource    ../Resources/PageObject/InvoiceManagerPage.robot
+
 
 
 Suite Setup  Run Keywords   Navigate To Home Page  Delete Invoice If Exists
@@ -29,37 +31,3 @@ Create an Invoice
     Delete Invoice  ${invoiceNumber}
     Take Screenshot
 
-*** Keywords ***
-Navigate To Home Page
-    Open Browser    ${SiteUrl}		${Browser}
-    Set Selenium Speed    .25 Seconds
-
-Click Add Invoice
-    Click Link  Add Invoice
-    Page Should Contain Element     invoiceNo_add
-
-
-Add Invoice
-    [Documentation]     This keywords fills out the invoice details page
-    [Arguments]  ${Name}    ${Company}  ${Type}     ${Cost}     ${Date}     ${Comments}     ${Status}
-    Input Text  invoice   ${Name}
-    Input Text  company   ${Company}
-    Input Text  type   ${Type}
-    Input Text  price   ${Cost}
-    Input Text  dueDate   ${Date}
-    Input Text  comment   ${Comments}
-    Select From List By Value   selectStatus    ${Status}
-    Click Button    createButton
-
-Delete Invoice If Exists
-    ${invoice_count}=   Get Element Count    css:[id^='invoiceNo_paulm'] > a
-    Run Keyword If      ${invoice_count} > 0    Delete Invoice  css:[id^='invoiceNo_paulm'] > a
-
-Create Invoice Number
-    ${RANUSER}    Generate Random String    10    [LETTERS]
-    [Return]    ${RANUSER}
-
-Delete Invoice
-    [Arguments]  ${invoiceNumber}
-    Click Link      xpath://a[normalize-space()='${invoiceNumber}']
-    Click Button    deleteButton
