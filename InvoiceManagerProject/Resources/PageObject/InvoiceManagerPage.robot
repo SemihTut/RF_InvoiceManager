@@ -24,12 +24,13 @@ ${selectStatus}=    selectStatus
 ${descriptionInput}=    comment
 ${saveButton}=  saveButton
 ${createButton}=    createButton
+${allInvoicesLocator}   xpath: (//tr[@class='invoice ng-scope']//td[1]//a)
 
 
 *** Keywords ***
 Get All Invoices
-    @{invoices}=    get webelements    xpath: (//tr[@class='invoice ng-scope']//td[1]//a)
-    ${count}    get element count    xpath: (//tr[@class='invoice ng-scope']//td[1]//a)
+    @{invoices}=    get webelements    ${allInvoicesLocator}
+    ${count}    get element count    ${allInvoicesLocator}
     ${Invo}=    create list
     FOR     ${i}  IN RANGE  1  ${count}
         ${text}=    get text    xpath: (//tr[@class='invoice ng-scope']//td[1]//a)[${i}]
