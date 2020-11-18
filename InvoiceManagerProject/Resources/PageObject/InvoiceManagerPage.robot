@@ -118,10 +118,11 @@ Add Invoice
     Click Button    createButton
 
 
-Navigate To Home Page
-    Open Browser    ${SiteUrl}		${Browser}
-    MAXIMIZE BROWSER WINDOW
-    Set Selenium Speed    .25 Seconds
+Navigate To The HomePage
+    open browser    ${SiteUrl}     ${Browser}
+    maximize browser window
+    Set Selenium Implicit Wait    10 Seconds
+    Set Selenium Speed     .10 seconds
 
 Input Invoice Number
     [Arguments]    ${randomNumber}

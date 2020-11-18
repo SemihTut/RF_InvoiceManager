@@ -1,5 +1,4 @@
 *** Settings ***
-Library  SeleniumLibrary
 Library  OperatingSystem
 Library  String
 Library  Screenshot
@@ -7,8 +6,8 @@ Resource    ../Resources/PageObject/InvoiceManagerPage.robot
 
 
 
-Suite Setup  Run Keywords   Navigate To Home Page  Delete Invoice If Exists
-Suite Teardown  Run Keywords    Close Browser
+Test Setup       Navigate To Home Page
+Test Teardown     close browser
 
 
 *** Variables ***
@@ -31,3 +30,6 @@ Create an Invoice
     Delete Invoice  ${invoiceNumber}
     Take Screenshot
 
+*** Keywords ***
+close browser
+    close all browsers

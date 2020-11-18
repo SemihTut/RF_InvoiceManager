@@ -1,8 +1,11 @@
 *** Settings ***
 Resource    ../Resources/PageObject/InvoiceManagerPage.robot
+Resource    ../Resources/CommonWeb.robot
 Library    DataDriver   ../TestDriven.xlsx     sheet_name=Sheet1
-Suite Setup  Run Keywords   Navigate To Home Page
-Suite Teardown  Run Keywords    close all browsers
+
+
+Suite Setup  run keyword    Navigate To Home Page
+Suite Teardown   run keyword     close all browsers
 Test Template   Add Some Invoices
 
 *** Variables ***
@@ -19,3 +22,6 @@ Add Some Invoices
     Add Invoice     ${Name}    ${Company}  ${Type}     ${Cost}     ${Date}     ${Comments}     ${Status}
 
 
+
+
+   # sleep   ${Delay}
