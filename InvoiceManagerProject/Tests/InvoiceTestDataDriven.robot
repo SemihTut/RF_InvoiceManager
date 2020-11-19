@@ -5,7 +5,7 @@ Library    DataDriver   ../TestDriven.xlsx     sheet_name=Sheet1
 
 
 Suite Setup  run keyword    Navigate To Home Page
-Suite Teardown   run keyword     close all browsers
+Suite Teardown   run keyword     End of the TestCase
 Test Template   Add Some Invoices
 
 *** Variables ***

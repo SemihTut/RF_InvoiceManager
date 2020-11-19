@@ -2,12 +2,14 @@
 Library  OperatingSystem
 Library  String
 Library  Screenshot
+Library     AWSLibrary
 Resource    ../Resources/PageObject/InvoiceManagerPage.robot
+Resource    ../Resources/CommonWeb.robot
 
 
 
-Test Setup       Navigate To Home Page
-Test Teardown     close browser
+Test Setup      Navigate To The HomePage
+Test Teardown     End of the TestCase
 
 
 *** Variables ***
@@ -30,6 +32,3 @@ Create an Invoice
     Delete Invoice  ${invoiceNumber}
     Take Screenshot
 
-*** Keywords ***
-close browser
-    close all browsers
